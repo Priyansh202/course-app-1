@@ -1,0 +1,16 @@
+<!-- courses/templates/courses/profile.html -->
+
+{% extends 'app/base.html' %}
+
+{% block content %}
+  <h2>{{ user.username }}'s Profile</h2>
+  <h3>Enrolled Courses:</h3>
+  
+  {% for e in enrollments %}
+<ul>
+  <li>{{e.course}}<li>
+  </ul>
+  {%endfor%}
+ 
+ 
+{% endblock %}

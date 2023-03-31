@@ -1,0 +1,17 @@
+
+{% extends 'app/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <h1>Welcome to the Online Course Tracker!</h1>
+  <p>
+    This application allows you to browse and enroll in available courses,
+    and track your progress as you complete lessons within those courses.
+  </p>
+  <p>
+    To get started, <a href="{% url 'course_list' %}">browse our available courses</a>.
+    If you're new here, you can <a href="{% url 'signup' %}">sign up for an account</a>.
+    If you already have an account, you can <a href="{% url 'login1' %}">log in</a> to access your profile.
+  </p>
+{% endblock %}

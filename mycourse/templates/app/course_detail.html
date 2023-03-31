@@ -1,0 +1,40 @@
+
+{% extends 'app/base.html' %}
+
+{% block content %}
+  <h1>{{ course.name }}</h1>
+  <p>{{ course.description }}</p>
+
+  {% if enrollment.completed_lessons.count > 0 %}
+    <h2>Lessons completed</h2>
+    <ul>
+      {% for lesson in enrollment.completed_lessons.all %}
+        <li>{{ lesson.name }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h2>Lessons</h2>
+  <ul>
+    {% for lesson in course.lesson_set.all %}
+      <li>
+        {{ lesson.name }}
+        {% if lesson in enrollment.completed_lessons.all %}
+          (completed)
+        {% else %}
+          <a href="{% url 'lesson_complete' enrollment.pk lesson.pk %}">Mark as completed</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% if user.is_authenticated %}
+  {% if course in user.enrolled_courses.all %}
+    <p>You are enrolled in this course.</p>
+  {% else %}
+    <a href="{% url 'enroll' course.id %}">Enroll in this course</a>
+  {% endif %}
+{% else %}
+  <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to enroll in this course.</p>
+{% endif %}
+
+{% endblock %}
